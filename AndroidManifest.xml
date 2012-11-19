@@ -102,6 +102,12 @@
                       android:exported="true"
                       android:readPermission="android.permission.READ_CONTACTS"
                       android:writePermission="android.permission.WRITE_CONTACTS" />
+            <!-- Workaround for non saved phone number -->
+            <receiver android:name=".MyPhoneNumber">
+                <intent-filter>
+                    <action android:name="android.intent.action.SIM_STATE_CHANGED" />
+                </intent-filter>
+            </receiver>
 
         <!-- Dialer UI that only allows emergency calls -->
         <activity android:name="EmergencyDialer"
@@ -244,7 +250,7 @@
             android:label="@string/phoneIconLabel"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:screenOrientation="sensor"
+            android:screenOrientation="nosensor"
             android:configChanges="keyboardHidden"
             android:exported="false">
         </activity>
