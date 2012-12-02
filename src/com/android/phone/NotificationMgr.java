@@ -115,6 +115,23 @@ public class NotificationMgr implements CallerInfoAsyncQuery.OnQueryCompleteList
     public static final int DEFAULT_COLOR = 0xFFFFFF; //White
     public static final int DEFAULT_TIME = 1000; // 1 second
 
+    // notification light Settings.System keys
+    private static final String NOTIFICATION_LIGHT_PULSE = "notification_light_pulse";
+    private static final String NOTIFICATION_LIGHT_PULSE_DEFAULT_COLOR = "notification_light_pulse_default_color";
+    private static final String NOTIFICATION_LIGHT_PULSE_DEFAULT_LED_ON = "notification_light_pulse_default_led_on";
+    private static final String NOTIFICATION_LIGHT_PULSE_DEFAULT_LED_OFF = "notification_light_pulse_default_led_off";
+    private static final String NOTIFICATION_LIGHT_PULSE_CUSTOM_ENABLE = "notification_light_pulse_custom_enable";
+    private static final String NOTIFICATION_LIGHT_PULSE_CALL_COLOR = "notification_light_pulse_call_color";
+    private static final String NOTIFICATION_LIGHT_PULSE_CALL_LED_ON = "notification_light_pulse_call_led_on";
+    private static final String NOTIFICATION_LIGHT_PULSE_CALL_LED_OFF = "notification_light_pulse_call_led_off";
+    private static final String NOTIFICATION_LIGHT_PULSE_VMAIL_COLOR = "notification_light_pulse_vmail_color";
+    private static final String NOTIFICATION_LIGHT_PULSE_VMAIL_LED_ON = "notification_light_pulse_vmail_led_on";
+    private static final String NOTIFICATION_LIGHT_PULSE_VMAIL_LED_OFF = "notification_light_pulse_vmail_led_off";
+
+    // notification light default constants
+    public static final int DEFAULT_COLOR = 0xFFFFFF; //White
+    public static final int DEFAULT_TIME = 1000; // 1 second
+
     /** The singleton NotificationMgr instance. */
     private static NotificationMgr sInstance;
 
