@@ -643,6 +643,7 @@
     <string name="call_notif_unconditionalCF">Renvoi d\'appel sans condition actif</string>
     <string name="call_notif_conditionalCF">Renvoi d\'appel  sous condition actif</string>
     <string name="call_notif_MOcall_forwarding">Appel sortant envoyé</string>
+    <!-- Toast text for MO call, when the caller & callee both belng to a CUG group -->
     <string name="call_notif_cugcall">Appel dans un groupe d\'utilisateurs fermé</string>
     <string name="call_notif_outgoing_barred">Appels sortants interdits</string>
     <string name="call_notif_incoming_barred">Appels entrants interdits dans un groupe</string>
