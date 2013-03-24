@@ -666,19 +666,17 @@
         <item>mute the ringer</item>
         <item>odrzuć połączenie</item>
     </string-array>
-    <plurals name="phone_in_ecm_notification_time">
-        <item quantity="one">Brak połączenia transmisji danych przez <xliff:g id="COUNT">%s</xliff:g> min</item>
-        <item quantity="few">Brak połączenia transmisji danych przez <xliff:g id="COUNT">%s</xliff:g> min</item>
-        <item quantity="other">Brak połączenia transmisji danych przez <xliff:g id="COUNT">%s</xliff:g> min</item>
-    </plurals>
-    <plurals name="alert_dialog_exit_ecm">
-        <item quantity="one">Telefon będzie w trybie alarmowym połączenia zwrotnego przez <xliff:g id="COUNT">%s</xliff:g> minutę. W tym trybie nie można korzystać z aplikacji używających połączeń danych. Czy chcesz teraz wyjść?</item>
-        <item quantity="few">Telefon będzie w trybie alarmowym połączenia zwrotnego przez <xliff:g id="COUNT">%s</xliff:g> min. W tym trybie nie można korzystać z aplikacji używających połączeń danych. Czy chcesz teraz wyjść?</item>
-        <item quantity="other">Telefon będzie w trybie alarmowym połączenia zwrotnego przez <xliff:g id="COUNT">%s</xliff:g> min. W tym trybie nie można korzystać z aplikacji używających połączeń danych. Czy chcesz teraz wyjść?</item>
-    </plurals>
-    <plurals name="alert_dialog_not_avaialble_in_ecm">
-        <item quantity="one">Wybrana akcja nie jest dostępna w trybie alarmowym połączenia zwrotnego. Telefon będzie w tym trybie <xliff:g id="COUNT">%s</xliff:g> min. Czy chcesz teraz wyjść?</item>
-        <item quantity="few">Wybrana akcja nie jest dostępna w trybie alarmowym połączenia zwrotnego. Telefon będzie w tym trybie <xliff:g id="COUNT">%s</xliff:g> min. Czy chcesz teraz wyjść?</item>
-        <item quantity="other">Wybrana akcja nie jest dostępna w trybie alarmowym połączenia zwrotnego. Telefon będzie w tym trybie <xliff:g id="COUNT">%s</xliff:g> min. Czy chcesz teraz wyjść?</item>
-    </plurals>
+    <string name="card_title_dialing_waiting">Łączenie (oczekiwanie\u2026)</string>
+    <string name="calllog_after_call">Pokaż raport</string>
+    <string name="calllog_after_call_summary">Pokaż raport po zakończeniu połączenia</string>
+
+    <string name="dialer_ui_settings_title">Ustawienia dialera</string>
+    <string name="dialer_ui_settings_summary">Ekran z ustawieniami dialera</string>
+
+    <!-- Noise suppression -->
+    <string name="noise_suppression_title">Redukcja szumów</string>
+    <string name="noise_suppression_summary">Włącz redukcję szumów dla połączeń</string>
+    <!-- End Noise suppression -->
+
+    <!-- CYANOGENMOD ADDITIONS END -->
 </resources>
