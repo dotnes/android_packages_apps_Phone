@@ -722,8 +722,12 @@
         <item>выключить звонок</item>
         <item>сбросить звонок</item>
     </string-array>
-    <!-- My Phone Number field -->
-    <string name="phone_number_label">Мой номер телефона</string>
-    <string name="phone_number_summary">Задать номер телефона для данного устройства</string>
+
+    <string name="card_title_dialing_waiting">Набор номера (ожидание\u2026)</string>
+
+    <string name="calllog_after_call">Показать журнал</string>
+    <string name="calllog_after_call_summary">Показывать журнал вызовов после окончания разговора</string>
+
+    <!-- CYANOGENMOD ADDITIONS END -->
 
 </resources>
