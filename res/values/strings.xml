@@ -1634,4 +1634,7 @@
     </string-array>
 
     <!-- CYANOGENMOD ADDITIONS END -->
+
+    <string name="rejected_as_missed">Rejected calls as missed</string>
+    <string name="rejected_as_missed_sum">Mark rejected calls as \'missed\' rather than \'incoming\' in the call log</string>
 </resources>
