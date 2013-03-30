@@ -423,6 +423,35 @@ public class PhoneUtils {
         static boolean rejectedAsMissed(Context context) {
             return PreferenceManager.getDefaultSharedPreferences(context)
                       .getBoolean("button_rejected_as_missed", false);
+	}
+
+        /* Voice quality filter */
+        static String getVoiceQualityParameter(Context context) {
+            String param = context.getResources().getString(R.string.voice_quality_param);
+            if (TextUtils.isEmpty(param)) {
+                return null;
+            }
+
+            int conf = getVoiceQualityValue(context);
+            String value = null;
+            if (conf <= -1) {
+                return null;
+            } else if (conf == 0) {
+                value = "Normal";
+            } else if (conf == 1) {
+                value = "Clear";
+            } else if (conf == 2) {
+                value = "Crisp";
+            } else if (conf == 3) {
+                value = "Bright";
+            }
+
+            return param + "=" + value;
+        }
+        static int getVoiceQualityValue(Context context) {
+            String conf = PreferenceManager.getDefaultSharedPreferences(context)
+                    .getString("button_voice_quality_key", "0");
+            return Integer.parseInt(conf);
         }
     }
 
