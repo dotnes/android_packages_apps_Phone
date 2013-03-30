@@ -40,11 +40,13 @@ import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothHeadset;
 import android.bluetooth.BluetoothProfile;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
+import android.media.VibrationPattern;
 import android.net.Uri;
 import android.os.AsyncResult;
 import android.os.Handler;
@@ -406,14 +408,14 @@ public class CallNotifier extends Handler
                 mApplication.notificationMgr.updateInCallNotification();
                 break;
 
-            case SUPP_SERVICE_NOTIFY:
-                if (DBG) log("Received Supplementary Notification");
-                onSuppServiceNotification((AsyncResult) msg.obj);
-                break;
-
             case VIBRATE_45_SEC:
                 vibrate(70, 0, 0);
                 sendEmptyMessageDelayed(VIBRATE_45_SEC, 60000);
+                break;
+
+            case SUPP_SERVICE_NOTIFY:
+                if (DBG) log("Received Supplementary Notification");
+                onSuppServiceNotification((AsyncResult) msg.obj);
                 break;
 
             default:
@@ -654,6 +656,8 @@ public class CallNotifier extends Handler
         if (shouldStartQuery) {
             // Reset the ringtone to the default first.
             mRinger.setCustomRingtoneUri(Settings.System.DEFAULT_RINGTONE_URI);
+            String vibUriString = VibrationPattern.getPhoneVibration(mApplication);
+            mRinger.setCustomVibrationUri(Uri.parse(vibUriString));
 
             // query the callerinfo to try to get the ringer.
             PhoneUtils.CallerInfoToken cit = PhoneUtils.startGetCallerInfo(
@@ -1057,6 +1061,13 @@ public class CallNotifier extends Handler
                     Ringer r = ((CallNotifier) cookie).mRinger;
                     r.setCustomRingtoneUri(ci.contactRingtoneUri);
                 }
+
+                // set the vibration uri to prepare for the ring.
+                if (ci.contactVibrationUri != null) {
+                    if (DBG) log("custom vibration found, setting up ringer.");
+                    Ringer r = ((CallNotifier) cookie).mRinger;
+                    r.setCustomVibrationUri(ci.contactVibrationUri);
+                }
                 // ring, and other post-ring actions.
                 onCustomRingQueryComplete();
             }
@@ -1283,16 +1294,9 @@ public class CallNotifier extends Handler
                     PhoneNumberUtils.isLocalEmergencyNumber(number, mApplication);
             // Set the "type" to be displayed in the call log (see constants in CallLog.Calls)
             final int callLogType;
-            boolean rejectAsMissed = PhoneUtils.PhoneSettings.rejectedAsMissed(mApplication);
             if (c.isIncoming()) {
-                if (!rejectAsMissed) {
-                        callLogType = (cause == Connection.DisconnectCause.INCOMING_MISSED ?
-                                Calls.MISSED_TYPE : Calls.INCOMING_TYPE);
-                } else {
-                callLogType = ( (cause == Connection.DisconnectCause.INCOMING_MISSED) ||
-                                (cause == Connection.DisconnectCause.INCOMING_REJECTED) ?
-                                Calls.MISSED_TYPE : Calls.INCOMING_TYPE);
-                }
+                callLogType = (cause == Connection.DisconnectCause.INCOMING_MISSED ?
+                               Calls.MISSED_TYPE : Calls.INCOMING_TYPE);
             } else {
                 callLogType = Calls.OUTGOING_TYPE;
             }
@@ -1503,8 +1507,7 @@ public class CallNotifier extends Handler
      */
     /* package */ void restartRinger() {
         if (DBG) log("restartRinger()...");
-        // Already ringing or Silent requested; no need to restart.
-        if (isRinging() || mSilentRingerRequested) return;
+        if (isRinging()) return;  // Already ringing; no need to restart.
 
         final Call ringingCall = mCM.getFirstActiveRingingCall();
         // Don't check ringingCall.isRinging() here, since that'll be true
