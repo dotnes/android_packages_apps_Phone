@@ -656,14 +656,6 @@ public class InCallScreen extends Activity
         if (DBG) log("onResume()...");
         super.onResume();
 
-        updateSettings();
-
-        if (Enable_Landscape_In_Call) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-        } else {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
-        }
-
         mFlipAction = PhoneUtils.PhoneSettings.flipAction(this);
 
         mIsForegroundActivity = true;

@@ -37,6 +37,7 @@ import android.os.Message;
 import android.os.RemoteException;
 import android.os.SystemProperties;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
@@ -412,14 +413,14 @@ public class PhoneUtils {
         }
         static boolean showCallLogAfterCall(Context context) {
             return PreferenceManager.getDefaultSharedPreferences(context)
-                      .getBoolean("button_calllog_after_call", false);
+                      .getBoolean("button_calllog_after_call", true);
         }
         static int flipAction(Context context) {
             String s = PreferenceManager.getDefaultSharedPreferences(context)
                       .getString("flip_action", "0");
             return Integer.parseInt(s);
         }
-        static boolean markRejectedCallsAsMissed(Context context) {
+        static boolean rejectedAsMissed(Context context) {
             return PreferenceManager.getDefaultSharedPreferences(context)
                       .getBoolean("button_rejected_as_missed", false);
         }

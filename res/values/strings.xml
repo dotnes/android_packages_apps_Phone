@@ -1572,12 +1572,9 @@
          [CHAR LIMIT=40] -->
     <string name="preference_category_ringtone">Ringtone &amp; Vibrate</string>
 
-    <!-- Noise suppression -->
-    <string name="noise_suppression_title">Noise suppression</string>
-    <string name="noise_suppression_summary">Enable noise suppression for calls</string>
-    <!-- End Noise suppression -->
-
-    <!-- CYANOGENMOD ADDITIONS START -->
+    <!-- Permission for notification-bar network toggle -->
+    <string name="perm_change_mobile_network">Change network (2G/3G)</string>
+    <string name="perm_change_mobile_network_desc">Application with this permission can, at any time, change between 2G data and 3G data. 3G is faster, consumes more battery, and can also cost you more money.</string>
 
     <!-- Advanced Settings -->
     <string name="advanced_setting">Advanced Settings</string>
@@ -1586,10 +1583,17 @@
     <string name="vibrate_hangup">Vibrate on hang up</string>
     <string name="vibrate_45">Vibrate every 45 seconds</string>
     <string name="vibrate_45_sum">Vibrates at the 45 second mark of every minute during outgoing calls</string>
+    <string name="rejected_as_missed">Rejected calls as missed</string>
+    <string name="rejected_as_missed_sum">Mark rejected calls as \'missed\' rather than \'incoming\' in the call log</string>
     <string name="show_ssn_label">Event notification</string>
     <string name="show_ssn_summary">Show a notification for various network events related to call handling</string>
-    <string name="calllog_after_call">Show log</string>
+    <string name="calllog_after_call">Call log after call</string>
     <string name="calllog_after_call_summary">Show the call log after ending a call</string>
+
+    <!-- Noise suppression -->
+    <string name="noise_suppression_title">Noise suppression</string>
+    <string name="noise_suppression_summary">Enable noise suppression for calls</string>
+    <!-- End Noise suppression -->
 
     <!-- Mobile network settings screen, setting check box name -->
     <string name="national_roaming">National data roaming</string>
@@ -1597,10 +1601,6 @@
     <string name="national_roaming_enable">Connect to data services when nationally roaming</string>
     <!-- Mobile network settings screen, setting summary text when check box is clear -->
     <string name="national_roaming_disable">Connect to data services when nationally roaming</string>
-
-    <!-- Permission for notification-bar network toggle -->
-    <string name="perm_change_mobile_network">Change network (2G/3G)</string>
-    <string name="perm_change_mobile_network_desc">Application with this permission can, at any time, change between 2G data and 3G data. 3G is faster, consumes more battery, and can also cost you more money.</string>
 
     <!-- Setting title for the flip action setting. -->
     <string name="flip_action_title">Flip action</string>
@@ -1633,8 +1633,8 @@
         <item>dismiss the call</item>
     </string-array>
 
-    <!-- CYANOGENMOD ADDITIONS END -->
+    <!-- My Phone Number field -->
+    <string name="phone_number_label">My phone number</string>
+    <string name="phone_number_summary">Set the phone number for this device</string>
 
-    <string name="rejected_as_missed">Rejected calls as missed</string>
-    <string name="rejected_as_missed_sum">Mark rejected calls as \'missed\' rather than \'incoming\' in the call log</string>
 </resources>

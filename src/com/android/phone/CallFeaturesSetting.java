@@ -213,8 +213,6 @@ public class CallFeaturesSetting extends PreferenceActivity
 
     private static final int MSG_UPDATE_RINGTONE_SUMMARY = 1;
     private static final int MSG_UPDATE_VOICEMAIL_RINGTONE_SUMMARY = 2;
-    private static final int VIB_OK = 10;
-    private static final int VIB_CANCEL = 11;
 
     // preferred TTY mode
     // Phone.TTY_MODE_xxx
@@ -276,18 +274,6 @@ public class CallFeaturesSetting extends PreferenceActivity
                 case MSG_UPDATE_VOICEMAIL_RINGTONE_SUMMARY:
                     mVoicemailNotificationRingtone.setSummary((CharSequence) msg.obj);
                     break;
-                case VIB_OK:
-                    VibrationPattern mPattern = (VibrationPattern) msg.obj;
-                    if (mPattern == null) {
-                        break;
-                    }
-                    mVibrationPreference.setSummary(mPattern.getName());
-                    Settings.System.putString(getContentResolver(),
-                            Settings.System.PHONE_VIBRATION, mPattern.getUri().toString());
-                    break;
-                case VIB_CANCEL:
-                default:
-                    break;
             }
         }
     };
@@ -301,7 +287,6 @@ public class CallFeaturesSetting extends PreferenceActivity
     private CheckBoxPreference mButtonHAC;
     private ListPreference mButtonDTMF;
     private ListPreference mButtonTTY;
-    private ListPreference mButtonRingDelay;
     private CheckBoxPreference mButtonNoiseSuppression;
     private ListPreference mButtonSipCallOptions;
     private CheckBoxPreference mMwiNotification;
@@ -527,8 +512,6 @@ public class CallFeaturesSetting extends PreferenceActivity
             return true;
         } else if (preference == mButtonTTY) {
             return true;
-        } else if (preference == mButtonRingDelay) {
-            return true;
         } else if (preference == mButtonNoiseSuppression) {
             int nsp = mButtonNoiseSuppression.isChecked() ? 1 : 0;
             // Update Noise suppression value in Settings database
@@ -645,9 +628,6 @@ public class CallFeaturesSetting extends PreferenceActivity
                 mChangingVMorFwdDueToProviderChange = true;
                 saveVoiceMailAndForwardingNumber(newProviderKey, newProviderSettings);
             }
-        } else if (preference == mButtonRingDelay) {
-            mButtonRingDelay.setValue((String) objValue);
-            mButtonRingDelay.setSummary(mButtonRingDelay.getEntry());
         } else if (preference == mButtonSipCallOptions) {
             handleSipCallOptionsChange(objValue);
         } else if (preference == mFlipAction) {
@@ -1597,7 +1577,6 @@ public class CallFeaturesSetting extends PreferenceActivity
         mButtonAutoRetry = (CheckBoxPreference) findPreference(BUTTON_RETRY_KEY);
         mButtonHAC = (CheckBoxPreference) findPreference(BUTTON_HAC_KEY);
         mButtonTTY = (ListPreference) findPreference(BUTTON_TTY_KEY);
-        mButtonRingDelay = (ListPreference) findPreference(BUTTON_RING_DELAY_KEY);
         mButtonNoiseSuppression = (CheckBoxPreference) findPreference(BUTTON_NOISE_SUPPRESSION_KEY);
         mVoicemailProviders = (ListPreference) findPreference(BUTTON_VOICEMAIL_PROVIDER_KEY);
         mFlipAction = (ListPreference) findPreference(FLIP_ACTION_KEY);
@@ -1660,15 +1639,6 @@ public class CallFeaturesSetting extends PreferenceActivity
             } else {
                 prefSet.removePreference(mButtonTTY);
                 mButtonTTY = null;
-            }
-        }
-
-        if (mButtonRingDelay != null) {
-            if (getResources().getBoolean(R.bool.ringdelay_enabled)) {
-                mButtonRingDelay.setOnPreferenceChangeListener(this);
-            } else {
-                prefSet.removePreference(mButtonRingDelay);
-                mButtonRingDelay = null;
             }
         }
 
@@ -1902,13 +1872,6 @@ public class CallFeaturesSetting extends PreferenceActivity
 
         if (mFlipAction != null) {
             updateFlipActionSummary(mFlipAction.getValue());
-	}
-
-        if (mButtonRingDelay != null) {
-            CharSequence mPrefEntry = mButtonRingDelay.getEntry();
-            if (mPrefEntry != null) {
-                mButtonRingDelay.setSummary(mPrefEntry);
-            }
         }
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
@@ -1920,6 +1883,25 @@ public class CallFeaturesSetting extends PreferenceActivity
 
         lookupRingtoneName();
         lookupVibrationName();
+    }
+
+    // Migrate settings from BUTTON_VOICEMAIL_NOTIFICATION_VIBRATE_WHEN_KEY to
+    // BUTTON_VOICEMAIL_NOTIFICATION_VIBRATE_KEY, if the latter does not exist.
+    // Returns true if migration was performed.
+    public static boolean migrateVoicemailVibrationSettingsIfNeeded(SharedPreferences prefs) {
+        if (!prefs.contains(BUTTON_VOICEMAIL_NOTIFICATION_VIBRATE_KEY)) {
+            String vibrateWhen = prefs.getString(
+                    BUTTON_VOICEMAIL_NOTIFICATION_VIBRATE_WHEN_KEY, VOICEMAIL_VIBRATION_NEVER);
+            // If vibrateWhen is always, then voicemailVibrate should be True.
+            // otherwise if vibrateWhen is "only in silent mode", or "never", then
+            // voicemailVibrate = False.
+            boolean voicemailVibrate = vibrateWhen.equals(VOICEMAIL_VIBRATION_ALWAYS);
+            final SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean(BUTTON_VOICEMAIL_NOTIFICATION_VIBRATE_KEY, voicemailVibrate);
+            editor.commit();
+            return true;
+        }
+        return false;
     }
 
     // Migrate settings from BUTTON_VOICEMAIL_NOTIFICATION_VIBRATE_WHEN_KEY to

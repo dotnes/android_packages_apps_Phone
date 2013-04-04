@@ -401,14 +401,14 @@ public class CallNotifier extends Handler
                 mApplication.notificationMgr.updateInCallNotification();
                 break;
 
-            case VIBRATE_45_SEC:
-                vibrate(70, 0, 0);
-                sendEmptyMessageDelayed(VIBRATE_45_SEC, 60000);
-                break;
-
             case SUPP_SERVICE_NOTIFY:
                 if (DBG) log("Received Supplementary Notification");
                 onSuppServiceNotification((AsyncResult) msg.obj);
+                break;
+
+            case VIBRATE_45_SEC:
+                vibrate(70, 0, 0);
+                sendEmptyMessageDelayed(VIBRATE_45_SEC, 60000);
                 break;
 
             default:
@@ -1258,14 +1258,15 @@ public class CallNotifier extends Handler
                     PhoneNumberUtils.isLocalEmergencyNumber(number, mApplication);
             // Set the "type" to be displayed in the call log (see constants in CallLog.Calls)
             final int callLogType;
+            boolean rejectAsMissed = PhoneUtils.PhoneSettings.rejectedAsMissed(mApplication);
             if (c.isIncoming()) {
-                if (cause == Connection.DisconnectCause.INCOMING_MISSED) {
-                    callLogType = Calls.MISSED_TYPE;
-                } else if (cause == Connection.DisconnectCause.INCOMING_REJECTED
-                        && PhoneUtils.PhoneSettings.markRejectedCallsAsMissed(mApplication)) {
-	                    callLogType = Calls.MISSED_TYPE;
+                if (!rejectAsMissed) {
+                        callLogType = (cause == Connection.DisconnectCause.INCOMING_MISSED ?
+                                Calls.MISSED_TYPE : Calls.INCOMING_TYPE);
                 } else {
-                    callLogType = Calls.INCOMING_TYPE;
+                callLogType = ( (cause == Connection.DisconnectCause.INCOMING_MISSED) ||
+                                (cause == Connection.DisconnectCause.INCOMING_REJECTED) ?
+                                Calls.MISSED_TYPE : Calls.INCOMING_TYPE);
                 }
             } else {
                 callLogType = Calls.OUTGOING_TYPE;
@@ -1477,7 +1478,8 @@ public class CallNotifier extends Handler
      */
     /* package */ void restartRinger() {
         if (DBG) log("restartRinger()...");
-        if (isRinging()) return;  // Already ringing; no need to restart.
+        // Already ringing or Silent requested; no need to restart.
+        if (isRinging() || mSilentRingerRequested) return;
 
         final Call ringingCall = mCM.getFirstActiveRingingCall();
         // Don't check ringingCall.isRinging() here, since that'll be true
