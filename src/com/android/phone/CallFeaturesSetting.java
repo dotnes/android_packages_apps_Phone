@@ -1904,25 +1904,6 @@ public class CallFeaturesSetting extends PreferenceActivity
         return false;
     }
 
-    // Migrate settings from BUTTON_VOICEMAIL_NOTIFICATION_VIBRATE_WHEN_KEY to
-    // BUTTON_VOICEMAIL_NOTIFICATION_VIBRATE_KEY, if the latter does not exist.
-    // Returns true if migration was performed.
-    public static boolean migrateVoicemailVibrationSettingsIfNeeded(SharedPreferences prefs) {
-        if (!prefs.contains(BUTTON_VOICEMAIL_NOTIFICATION_VIBRATE_KEY)) {
-            String vibrateWhen = prefs.getString(
-                    BUTTON_VOICEMAIL_NOTIFICATION_VIBRATE_WHEN_KEY, VOICEMAIL_VIBRATION_NEVER);
-            // If vibrateWhen is always, then voicemailVibrate should be True.
-            // otherwise if vibrateWhen is "only in silent mode", or "never", then
-            // voicemailVibrate = False.
-            boolean voicemailVibrate = vibrateWhen.equals(VOICEMAIL_VIBRATION_ALWAYS);
-            final SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean(BUTTON_VOICEMAIL_NOTIFICATION_VIBRATE_KEY, voicemailVibrate);
-            editor.commit();
-            return true;
-        }
-        return false;
-    }
-
     /**
      * Obtain the setting for "vibrate when ringing" setting.
      *
