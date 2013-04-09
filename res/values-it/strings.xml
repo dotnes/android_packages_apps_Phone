@@ -399,20 +399,6 @@
     <string name="card_title_hanging_up" msgid="3999101620995182450">"In fase di chiusura"</string>
     <string name="card_title_in_call" msgid="6346543933068225205">"Chiamata"</string>
     <string name="card_title_my_phone_number" msgid="112428362494434191">"Il mio numero è <xliff:g id="MY_PHONE_NUMBER">%s</xliff:g>"</string>
-    <string name="call_notif_unconditionalCF">"Deviazione incondizionata attiva"</string>
-    <string name="call_notif_conditionalCF">"Deviazione condizionata attiva"</string>
-    <string name="call_notif_MOcall_forwarding">"Chiamata in uscita deviata"</string>
-    <string name="call_notif_cugcall">"Chiamata in gruppo chiuso di utenti (CUG)"</string>
-    <string name="call_notif_outgoing_barred">"Blocco chiamate in uscita"</string>
-    <string name="call_notif_incoming_barred">"Blocco chiamate in ingresso al destinatario"</string>
-    <string name="call_notif_clir_suppression_rejected">"Soppressione ID chiamante per proprio numero rifiutata dalla rete"</string>
-    <string name="call_notif_call_deflected">"Chiamata inoltrata dal destinatario"</string>
-    <string name="call_notif_MTcall_forwarding">"Chiamata in ingresso inoltrata"</string>
-    <string name="call_notif_multipartycall">"Chiamata multipla"</string>
-    <string name="call_notif_callonhold_released">"Chiamata abbandonata dal destinatario"</string>
-    <string name="call_notif_forwardcheckreceived">"La chiamata è stata inoltrata"</string>
-    <string name="call_notif_callconnectingect">"Chiamata in connessione con trasferimento di chiamata"</string>
-    <string name="call_notif_callconnectedect">"Chiamata connessa con trasferimento di chiamata"</string>
     <string name="notification_dialing" msgid="2107666444937350731">"Chiamata in corso"</string>
     <string name="notification_missedCallTitle" msgid="7554385905572364535">"Chiamata senza risposta"</string>
     <string name="notification_missedCallsTitle" msgid="1361677948941502522">"Chiamate senza risposta"</string>
