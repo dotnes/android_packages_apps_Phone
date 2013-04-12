@@ -612,8 +612,7 @@
     <string name="description_target_decline" msgid="4789834364389731957">"Recusar"</string>
     <string name="voicemail_notification_vibrate_when_title" msgid="8361970092063604886">"Vibrar"</string>
     <string name="voicemail_notification_vibarte_when_dialog_title" msgid="5739583146522136440">"Vibrar"</string>
-    <string name="voicemail_notification_ringtone_title" msgid="2609519527849101590">"Som"</string>
-    <string name="default_notification_description" msgid="78174796906240970">"Som padrão (<xliff:g id="DEFAULT_SOUND_TITLE">%1$s</xliff:g>)"</string>
+    <string name="voicemail_notification_ringtone_title" msgid="2512535133814478358">"Toque"</string>
   <string-array name="voicemail_notification_vibrate_when_entries">
     <item msgid="468237575962916558">"Sempre"</item>
     <item msgid="1595097872875714252">"Apenas quando estiver no silencioso"</item>
@@ -667,20 +666,4 @@
     <string name="incall_call_type_label_forwarded">Chamada encaminhada</string>
     <string name="show_ssn_label">Notificação de evento</string>
     <string name="show_ssn_summary">Exibir uma notificação para vários eventos de rede relacionados ao precessamento de chamadas</string>
-    <string name="flip_action_title">Ação de virar</string>
-    <string name="flip_action_dialog_title">Virar o dispositivo para\u2026</string>
-    <string name="flip_action_summary">Virar o telefone para baixo irá <xliff:g id="action" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">%s</xliff:g></string>
-    <string-array name="flip_action_setting_entries">
-        <item>Fazer nada</item>
-        <item>Silenciar o tocador</item>
-        <item>Dispensar a chamada</item>
-    </string-array>
-    <string-array name="flip_action_summary_entries">
-        <item>fazer nada</item>
-        <item>silenciar o tocador</item>
-        <item>dispensar a chamada</item>
-    </string-array>
-    <string name="card_title_dialing_waiting">Discando (esperando\u2026)</string>
-    <string name="calllog_after_call">Mostrar registro</string>
-    <string name="calllog_after_call_summary">Mostrar o registro de chamadas após encerrar a chamada</string>
 </resources>

@@ -409,45 +409,15 @@ public class PhoneUtils {
             return getPrefs(context).getBoolean("button_show_ssn_key", false);
         }
         static boolean showCallLogAfterCall(Context context) {
-            return getPrefs(context).getBoolean("button_calllog_after_call", false);
+            return getPrefs(context).getBoolean("button_calllog_after_call", true);
         }
         static int flipAction(Context context) {
             String s = getPrefs(context).getString("flip_action", "0");
             return Integer.parseInt(s);
         }
         static boolean rejectedAsMissed(Context context) {
-            return PreferenceManager.getDefaultSharedPreferences(context)
-                      .getBoolean("button_rejected_as_missed", false);
-	}
-
-        /* Voice quality filter */
-        static String getVoiceQualityParameter(Context context) {
-            String param = context.getResources().getString(R.string.voice_quality_param);
-            if (TextUtils.isEmpty(param)) {
-                return null;
-            }
-
-            int conf = getVoiceQualityValue(context);
-            String value = null;
-            if (conf <= -1) {
-                return null;
-            } else if (conf == 0) {
-                value = "Normal";
-            } else if (conf == 1) {
-                value = "Clear";
-            } else if (conf == 2) {
-                value = "Crisp";
-            } else if (conf == 3) {
-                value = "Bright";
-            }
-
-            return param + "=" + value;
+            return getPrefs(context).getBoolean("button_rejected_as_missed", false);
         }
-        static int getVoiceQualityValue(Context context) {
-            String conf = PreferenceManager.getDefaultSharedPreferences(context)
-                    .getString("button_voice_quality_key", "0");
-            return Integer.parseInt(conf);
-	}
         static boolean isBlacklistEnabled(Context context) {
             return getPrefs(context).getBoolean("button_enable_blacklist", false);
         }
