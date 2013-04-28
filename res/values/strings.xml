@@ -1645,7 +1645,9 @@
     <string name="blacklist_private_numbers">Block private numbers</string>
     <string name="blacklist_notification_private_number">Blocked a call from a private number</string>
     <string name="blacklist_notification_multiple"><xliff:g id="count">%d</xliff:g> calls were blocked</string>
-
+    <string name="blacklist_unknown_numbers_title">Unknown numbers</string>
+    <string name="blacklist_unknown_numbers_summary">Block incoming calls from numbers not in the contact list</string>
+ 
     <!-- Blacklist management -->
     <string name="add_blacklist_number">Add phone number</string>
     <string name="add_to_blacklist">Add to blacklist</string>
@@ -1656,6 +1658,8 @@
     <!-- Blacklist notifications -->
     <string name="blacklist_notification">Blocked a call from %s</string>
     <string name="unblock_number">Unblock</string>
+    <string name="blacklist_notification_list_private">Private</string>
+    <string name="blacklist_notification_unknown_number">Blocked unknown number %s</string>
 
     <!-- Text for the onscreen "Blacklist" button -->
     <string name="onscreenBlacklistText">Blacklist</string>
