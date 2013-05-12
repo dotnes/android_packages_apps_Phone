@@ -51,15 +51,10 @@ public class Use2GOnlyCheckBoxPreference extends CheckBoxPreference {
     @Override
     protected void  onClick() {
         super.onClick();
-        int networkType = Phone.PREFERRED_NT_MODE;
-        boolean isLteOnGsm = mPhone.getLteOnGsmMode() != 0;
-        Log.i(LOG_TAG, "set preferred network type="+isLteOnGsm);   
-        if (isLteOnGsm) {
-            networkType = isChecked() ? Phone.NT_MODE_GSM_ONLY : Phone.NT_MODE_LTE_GSM_WCDMA;           
-        }
-        else {
-                networkType = isChecked() ? Phone.NT_MODE_GSM_ONLY : Phone.PREFERRED_NT_MODE;
-        }
+
+        int bestAvailableType = (mPhone.getLteOnGsmMode() == 0) ?
+                                Phone.NT_MODE_WCDMA_PREF : Phone.NT_MODE_LTE_GSM_WCDMA;
+        int networkType = isChecked() ? Phone.NT_MODE_GSM_ONLY : bestAvailableType;
 
         Log.i(LOG_TAG, "set preferred network type="+networkType);
         android.provider.Settings.Global.putInt(mPhone.getContext().getContentResolver(),
