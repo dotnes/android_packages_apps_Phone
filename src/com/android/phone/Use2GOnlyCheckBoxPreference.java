@@ -84,9 +84,7 @@ public class Use2GOnlyCheckBoxPreference extends CheckBoxPreference {
     public static void updateCheckBox(Phone phone) {
         Log.i(LOG_TAG, "updateCheckBox subscription :" + phone.getSubscription());
         mPhone = phone;
-        if (mHandler != null) {
-            mHandler.sendEmptyMessage(MyHandler.MESSAGE_UPDATE_CHECK_BOX_STATE);
-        }
+        mHandler.sendEmptyMessage(MyHandler.MESSAGE_UPDATE_CHECK_BOX_STATE);
     }
 
 

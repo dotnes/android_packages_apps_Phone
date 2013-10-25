@@ -38,6 +38,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.pm.ActivityInfo;
+import com.android.internal.telephony.gsm.SuppServiceNotification;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
@@ -422,10 +423,6 @@ public class InCallScreen extends Activity
             switch (msg.what) {
                 case SUPP_SERVICE_FAILED:
                     onSuppServiceFailed((AsyncResult) msg.obj);
-                    break;
-
-                case SUPP_SERVICE_NOTIFY:
-                    onSuppServiceNotification((AsyncResult) msg.obj);
                     break;
 
                 case PHONE_STATE_CHANGED:
@@ -2018,17 +2015,38 @@ public class InCallScreen extends Activity
         // to the next.)
         mDialer.clearDigits();
 
+        SuppServiceNotification suppSvcNotification = CallNotifier.getSuppSvcNotification();
         // Under certain call disconnected states, we want to alert the user
         // with a dialog instead of going through the normal disconnect
         // routine.
         if (cause == Connection.DisconnectCause.INCOMING_MISSED) {
-            if (mApp.inCallUiState.needToShowAdditionalCallForwardedDialog) {
-                showGenericErrorDialog(R.string.callUnanswered_forwarded, false);
-                mApp.inCallUiState.needToShowAdditionalCallForwardedDialog = false;
+           // If the network sends SVC Notification then this dialog will be displayed
+           // in case of B when the incoming call at B is not answered and gets forwarded
+           // to C
+            if (suppSvcNotification != null) {
+                if (suppSvcNotification.notificationType == 1 && suppSvcNotification.code
+                        == SuppServiceNotification.MT_CODE_ADDITIONAL_CALL_FORWARDED) {
+                    showGenericErrorDialog(R.string.callUnanswered_forwarded, false);
+                    CallNotifier.clearSuppSvcNotification();
+                    return;
+                }
             }
         } else if (cause == Connection.DisconnectCause.CALL_BARRED) {
-            showGenericErrorDialog(R.string.callFailed_cb_enabled, false);
-            return;
+            // When call is disconnected with this code then it can either be barring from
+            // MO side or MT side.
+            // In MT case, if network sends SVC Notification then this dialog will be
+            // displayed when A is calling B & incoming is barred on B.
+            if (suppSvcNotification != null) {
+                if (suppSvcNotification.notificationType == 0 && suppSvcNotification.code
+                        == SuppServiceNotification.MO_CODE_INCOMING_CALLS_BARRED) {
+                    showGenericErrorDialog(R.string.callFailed_incoming_cb_enabled, false);
+                    CallNotifier.clearSuppSvcNotification();
+                    return;
+                }
+            } else {
+                showGenericErrorDialog(R.string.callFailed_cb_enabled, false);
+                return;
+            }
         } else if (cause == Connection.DisconnectCause.FDN_BLOCKED) {
             showGenericErrorDialog(R.string.callFailed_fdn_only, false);
             return;
@@ -3372,6 +3390,9 @@ public class InCallScreen extends Activity
                 break;
             case R.id.addBlacklistButton:
                 confirmAddBlacklist();
+            case R.id.addParticipant:
+                onAddParticipant();
+                break;
             case R.id.addParticipant:
                 onAddParticipant();
                 break;
