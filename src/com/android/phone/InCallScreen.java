@@ -3393,10 +3393,6 @@ public class InCallScreen extends Activity
             case R.id.addParticipant:
                 onAddParticipant();
                 break;
-            case R.id.addParticipant:
-                onAddParticipant();
-                break;
-
             default:
                 Log.w(LOG_TAG, "handleOnscreenButtonClick: unexpected ID " + id);
                 break;
