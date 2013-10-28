@@ -188,7 +188,6 @@ public class InCallScreen extends Activity
     private static final int PHONE_MODIFY_CALL_EVENT = 126;
     private static final int PHONE_AVP_UPGRADE_RETRY_FAILURE_NOTICE = 127;
     private static final int DISPLAY_MODE_CHANGED = 128;
-    private static final int SUPP_SERVICE_NOTIFY = 129;
 
     // When InCallScreenMode is UNDEFINED set the default action
     // to ACTION_UNDEFINED so if we are resumed the activity will
@@ -1324,7 +1323,6 @@ public class InCallScreen extends Activity
             mCM.registerForCallWaiting(mHandler, PHONE_CDMA_CALL_WAITING, null);
             mCM.registerForPostDialCharacter(mHandler, POST_ON_DIAL_CHARS, null);
             mCM.registerForSuppServiceFailed(mHandler, SUPP_SERVICE_FAILED, null);
-            mCM.registerForSuppServiceNotification(mHandler, SUPP_SERVICE_NOTIFY, null);
             mCM.registerForIncomingRing(mHandler, PHONE_INCOMING_RING, null);
             mCM.registerForNewRingingConnection(mHandler, PHONE_NEW_RINGING_CONNECTION, null);
 
@@ -1354,7 +1352,6 @@ public class InCallScreen extends Activity
         mCM.unregisterForCallWaiting(mHandler);
         mCM.unregisterForPostDialCharacter(mHandler);
         mCM.unregisterForSuppServiceFailed(mHandler);
-        mCM.unregisterForSuppServiceNotification(mHandler);
         mCM.unregisterForIncomingRing(mHandler);
         mCM.unregisterForNewRingingConnection(mHandler);
         // remove locally posted message
@@ -3394,6 +3391,7 @@ public class InCallScreen extends Activity
             case R.id.addParticipant:
                 onAddParticipant();
                 break;
+
             default:
                 Log.w(LOG_TAG, "handleOnscreenButtonClick: unexpected ID " + id);
                 break;

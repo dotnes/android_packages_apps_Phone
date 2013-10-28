@@ -338,14 +338,14 @@ public class PhoneInterfaceManager extends ITelephony.Stub {
     public void toggle2G(boolean on) {
         int network = -1;
         if (on) {
-            network = Phone.NT_MODE_GSM_ONLY;
+            network = PhoneConstants.NT_MODE_GSM_ONLY;
         } else {
-            network = Phone.NT_MODE_WCDMA_PREF;
+            network = PhoneConstants.NT_MODE_WCDMA_PREF;
         }
         mPhone.setPreferredNetworkType(network,
                 mMainThreadHandler.obtainMessage(CMD_TOGGLE_2G));
-        android.provider.Settings.Global.putInt(mApp.getContentResolver(),
-                android.provider.Settings.Global.PREFERRED_NETWORK_MODE, network);
+        Settings.Secure.putInt(mApp.getContentResolver(),
+                Settings.Global.PREFERRED_NETWORK_MODE, network);
     }
 
     private boolean showCallScreenInternal(boolean specifyInitialDialpadState,
